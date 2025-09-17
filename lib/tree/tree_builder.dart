@@ -146,11 +146,11 @@ class TreeBuilder {
       negativeNode.addMultiplyChildren(minusMultiplyExpressions);
     }
     if (plusMulDivExpressions.isNotEmpty && plusDivMulExpressions.isNotEmpty) {
-      positiveNode.addMulDiv(plusMulDivExpressions, plusDivMulExpressions);
+      positiveNode.addMulDivChildren(plusMulDivExpressions, plusDivMulExpressions);
     }
     if (minusMulDivExpressions.isNotEmpty &&
         minusDivMulExpressions.isNotEmpty) {
-      negativeNode.addMulDiv(minusMulDivExpressions, minusDivMulExpressions);
+      negativeNode.addMulDivChildren(minusMulDivExpressions, minusDivMulExpressions);
     }
     rootTreeNode.setPositive(positiveNode);
     rootTreeNode.setNegative(negativeNode);

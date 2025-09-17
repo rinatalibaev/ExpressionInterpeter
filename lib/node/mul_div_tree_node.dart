@@ -1,50 +1,29 @@
 import 'dart:core';
 
-import 'leaf_node.dart';
 import '../../node/tree_node.dart';
 
 class MulDivTreeNode extends TreeNode {
-  List<LeafNode> mulLeafChildren = [];
-  List<TreeNode> mulExpressionChildren = [];
-  List<LeafNode> divLeafChildren = [];
-  List<TreeNode> divExpressionChildren = [];
+  List<TreeNode> mulChildren = [];
+  List<TreeNode> divChildren = [];
 
   @override
   double calcResult(Map<String, num> map) {
     double result = 1;
-    for (LeafNode child in mulLeafChildren) {
+    for (TreeNode child in mulChildren) {
       result *= child.calcResult(map);
     }
-    for (TreeNode child in mulExpressionChildren) {
-      result *= child.calcResult(map);
-    }
-
-    for (LeafNode child in divLeafChildren) {
+    for (TreeNode child in divChildren) {
       result /= child.calcResult(map);
     }
-    for (TreeNode child in divExpressionChildren) {
-      result /= child.calcResult(map);
-    }
-
     return result;
   }
 
-  void setMulLeafChildren(List<LeafNode> mulLeafChildren) {
-    this.mulLeafChildren = mulLeafChildren;
+  void addMulChildren(List<TreeNode> children) {
+    mulChildren += children;
   }
 
-  void setMulExpressionChildren(List<TreeNode> mulExpressionChildren) {
-    this.mulExpressionChildren = mulExpressionChildren;
+  void addDivChildren(List<TreeNode> children) {
+    divChildren += children;
   }
-
-  void setDivLeafChildren(List<LeafNode> divLeafChildren) {
-    this.divLeafChildren = divLeafChildren;
-  }
-
-  void setDivExpressionChildren(List<TreeNode> divExpressionChildren) {
-    this.divExpressionChildren = divExpressionChildren;
-  }
-
-
 
 }

@@ -37,13 +37,13 @@ class PlusTreeNode extends TreeNode with StringUtils {
 
       addNodes(tokens, leafChildren, expressionChildren);
 
-      multiplyTreeNode.setLeafChildren(leafChildren);
-      multiplyTreeNode.setExpressionChildren(expressionChildren);
+      multiplyTreeNode.addChildren(leafChildren);
+      multiplyTreeNode.addChildren(expressionChildren);
       children.add(multiplyTreeNode);
     }
   }
 
-  void addMulDiv(List<List<String>> plusMulDivExpressions, List<List<String>> plusDivMulExpressions) {
+  void addMulDivChildren(List<List<String>> plusMulDivExpressions, List<List<String>> plusDivMulExpressions) {
     MulDivTreeNode mulDivTreeNode = MulDivTreeNode();
     for (List<String> tokens in plusMulDivExpressions) {
       List<LeafNode> mulLeafChildren = [];
@@ -51,8 +51,8 @@ class PlusTreeNode extends TreeNode with StringUtils {
 
       addNodes(tokens, mulLeafChildren, mulExpressionChildren);
 
-      mulDivTreeNode.setMulLeafChildren(mulLeafChildren);
-      mulDivTreeNode.setMulExpressionChildren(mulExpressionChildren);
+      mulDivTreeNode.addMulChildren(mulLeafChildren);
+      mulDivTreeNode.addMulChildren(mulExpressionChildren);
     }
 
     for (List<String> tokens in plusDivMulExpressions) {
@@ -61,8 +61,8 @@ class PlusTreeNode extends TreeNode with StringUtils {
 
       addNodes(tokens, divLeafChildren, divExpressionChildren);
 
-      mulDivTreeNode.setDivLeafChildren(divLeafChildren);
-      mulDivTreeNode.setDivExpressionChildren(divExpressionChildren);
+      mulDivTreeNode.addDivChildren(divLeafChildren);
+      mulDivTreeNode.addDivChildren(divExpressionChildren);
     }
     children.add(mulDivTreeNode);
   }
