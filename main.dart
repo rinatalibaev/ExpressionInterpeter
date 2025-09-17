@@ -1,4 +1,4 @@
-import '../interpreter/expression_interpreter.dart';
+import 'interpreter/expression_interpreter.dart';
 
 void main() {
   String exp = '-40/(x-92)*2+5*(7-z)*y';
