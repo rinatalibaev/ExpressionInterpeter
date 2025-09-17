@@ -80,7 +80,7 @@ class PlusTreeNode extends TreeNode with StringUtils {
         negativeNode.addChildrenByToken([]);
         expressionChildren.add(positiveNode);
         CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode, (rootTreeNode) =>
-          TreeBuilder(rootTreeNode).buildTreeByRoot()
+          TreeBuilder(rootTreeNode).buildTree()
         );
       }
     }

@@ -24,7 +24,7 @@ class TreeBuilder {
 
   TreeBuilder(this.rootTreeNode);
 
-  void buildTreeByRoot() {
+  void buildTree() {
     String token = rootTreeNode.getToken();
     for (int i = 0; i < token.length; i++) {
       String ch = token[i];
@@ -155,7 +155,7 @@ class TreeBuilder {
     rootTreeNode.setPositive(positiveNode);
     rootTreeNode.setNegative(negativeNode);
     CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode,
-      (rootTreeNode) => TreeBuilder(rootTreeNode).buildTreeByRoot()
+      (rootTreeNode) => TreeBuilder(rootTreeNode).buildTree()
     );
   }
 

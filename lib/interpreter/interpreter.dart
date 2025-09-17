@@ -9,7 +9,7 @@ class Interpreter {
     Interpreter(String exp) {
         rootNode = RootTreeNode(exp);
         TreeBuilder treeBuilder = TreeBuilder(rootNode);
-        treeBuilder.buildTreeByRoot();
+        treeBuilder.buildTree();
     }
 
     double calculate(Map<String, num> map) {
