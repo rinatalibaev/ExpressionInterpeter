@@ -1,9 +1,9 @@
-import 'ExpressionInterpreter.dart';
-import 'LeafNode.dart';
-import 'MulDivTreeNode.dart';
-import 'MultiplyTreeNode.dart';
-import 'RootTreeNode.dart';
-import 'TreeNode.dart';
+import '../interpreter/expression_interpreter.dart';
+import 'leaf_node.dart';
+import 'mul_div_tree_node.dart';
+import 'multiply_tree_node.dart';
+import 'root_tree_node.dart';
+import 'tree_node.dart';
 
 class PlusTreeNode extends TreeNode {
   final List<TreeNode> children = [];
@@ -16,11 +16,11 @@ class PlusTreeNode extends TreeNode {
     for (String token in tokens) {
       isLeaf(token);
       if (isLeaf(token)) {
-        LeafNode leafNode = new LeafNode();
+        LeafNode leafNode = LeafNode();
         leafNode.setToken(token);
         children.add(leafNode);
       } else {
-        RootTreeNode rootTreeNode = new RootTreeNode(token);
+        RootTreeNode rootTreeNode = RootTreeNode(token);
         children.add(rootTreeNode);
       }
     }
@@ -30,18 +30,18 @@ class PlusTreeNode extends TreeNode {
     for (List<String> tokens in multiplyExpressions) {
       List<LeafNode> leafChildren = [];
       List<TreeNode> expressionChildren = [];
-      MultiplyTreeNode multiplyTreeNode = new MultiplyTreeNode();
+      MultiplyTreeNode multiplyTreeNode = MultiplyTreeNode();
 
       addNodes(tokens, leafChildren, expressionChildren);
 
       multiplyTreeNode.setLeafChildren(leafChildren);
       multiplyTreeNode.setExpressionChildren(expressionChildren);
-      this.children.add(multiplyTreeNode);
+      children.add(multiplyTreeNode);
     }
   }
 
   void addMulDiv(List<List<String>> plusMulDivExpressions, List<List<String>> plusDivMulExpressions) {
-    MulDivTreeNode mulDivTreeNode = new MulDivTreeNode();
+    MulDivTreeNode mulDivTreeNode = MulDivTreeNode();
     for (List<String> tokens in plusMulDivExpressions) {
       List<LeafNode> mulLeafChildren = [];
       List<TreeNode> mulExpressionChildren = [];
@@ -61,18 +61,18 @@ class PlusTreeNode extends TreeNode {
       mulDivTreeNode.setDivLeafChildren(divLeafChildren);
       mulDivTreeNode.setDivExpressionChildren(divExpressionChildren);
     }
-    this.children.add(mulDivTreeNode);
+    children.add(mulDivTreeNode);
   }
 
   void addNodes(List<String> tokens, List<LeafNode> leafChildren, List<TreeNode> expressionChildren) {
     for (String token in tokens) {
       if (isLeaf(token)) {
-        LeafNode leafNode = new LeafNode();
+        LeafNode leafNode = LeafNode();
         leafNode.setToken(token);
         leafChildren.add(leafNode);
       } else {
-        PlusTreeNode positiveNode = new PlusTreeNode();
-        PlusTreeNode negativeNode = new PlusTreeNode();
+        PlusTreeNode positiveNode = PlusTreeNode();
+        PlusTreeNode negativeNode = PlusTreeNode();
         positiveNode.addChildrenByToken([token]);
         negativeNode.addChildrenByToken([]);
         expressionChildren.add(positiveNode);

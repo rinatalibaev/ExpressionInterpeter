@@ -1,0 +1,6 @@
+name: expression_interpreter
+
+environment:
+  sdk: '^3.9.0'
+dev_dependencies:
+  lints: ^6.0.0

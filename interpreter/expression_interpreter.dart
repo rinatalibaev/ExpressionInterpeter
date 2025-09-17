@@ -1,19 +1,19 @@
-import 'PlusTreeNode.dart';
-import 'RootTreeNode.dart';
-import 'TreeNode.dart';
+import '../node/plus_tree_node.dart';
+import '../node/root_tree_node.dart';
+import '../node/tree_node.dart';
 
 class ExpressionInterpreter {
 
-    static const String PLUS = '+';
-    static const String MINUS = '-';
-    static const String L_PAR = '(';
-    static const String R_PAR = ')';
-    static const String MUL = '*';
-    static const String DIV = '/';
+    static const String plus = '+';
+    static const String minus = '-';
+    static const String lPar = '(';
+    static const String rPar = ')';
+    static const String mul = '*';
+    static const String div = '/';
     late final RootTreeNode rootNode;
 
     ExpressionInterpreter(String exp) {
-        this.rootNode = new RootTreeNode(exp);
+        rootNode = RootTreeNode(exp);
         buildTreeByRoot(rootNode);
     }
 
@@ -23,11 +23,11 @@ class ExpressionInterpreter {
 
     static void buildTreeByRoot(RootTreeNode rootTreeNode)  {
         String token = rootTreeNode.getToken();
+        String sign = plus;
+        bool division = false;
+        String tempToken = '';
         List<String> positiveTokens = [];
         List<String> negativeTokens = [];
-        String sign = PLUS;
-        bool division = false;
-        String tempToken = "";
         List<String> multiplyTokens = [];
         List<String> divisionTokens = [];
         List<List<String>> plusMultiplyExpressions = [];
@@ -41,72 +41,72 @@ class ExpressionInterpreter {
 
         for (int i = 0; i < token.length; i++) {
             String ch = token[i];
-            if (ch == MINUS) {
+            if (ch == minus) {
                 if (openBrackets == closeBrackets) {
-                    if (!divisionTokens.isEmpty || division) {
+                    if (divisionTokens.isNotEmpty || division) {
                         conditionallyAddTempToken(tempToken, division, divisionTokens, multiplyTokens);
                         addToMulDiv(sign, multiplyTokens, divisionTokens, plusMulDivExpressions, minusMulDivExpressions, plusDivMulExpressions, minusDivMulExpressions);
                         division = false;
                     } else {
-                        if (!multiplyTokens.isEmpty) {
+                        if (multiplyTokens.isNotEmpty) {
                             multiplyTokens.add(tempToken);
                         }
                         flushOrAddToMultiply(tempToken, sign, positiveTokens, negativeTokens, multiplyTokens, divisionTokens,
                                 plusMultiplyExpressions, minusMultiplyExpressions, plusMulDivExpressions, minusMulDivExpressions);
                     }
-                    tempToken = "";
-                    sign = MINUS;
+                    tempToken = '';
+                    sign = minus;
                 } else {
                     tempToken += ch;
                 }
-            } else if (ch == PLUS) {
+            } else if (ch == plus) {
                 if (openBrackets == closeBrackets) {
-                    if (!divisionTokens.isEmpty || division) {
+                    if (divisionTokens.isNotEmpty || division) {
                         conditionallyAddTempToken(tempToken, division, divisionTokens, multiplyTokens);
                         addToMulDiv(sign, multiplyTokens, divisionTokens, plusMulDivExpressions, minusMulDivExpressions, plusDivMulExpressions, minusDivMulExpressions);
                         division = false;
                     } else {
-                        if (!multiplyTokens.isEmpty) {
+                        if (multiplyTokens.isNotEmpty) {
                             multiplyTokens.add(tempToken);
                         }
                         flushOrAddToMultiply(tempToken, sign, positiveTokens, negativeTokens, multiplyTokens, divisionTokens,
                                 plusMultiplyExpressions, minusMultiplyExpressions, plusMulDivExpressions, minusMulDivExpressions);
                     }
-                    tempToken = "";
-                    sign = PLUS;
+                    tempToken = '';
+                    sign = plus;
                 } else {
                     tempToken += ch;
                 }
-            } else if (ch == L_PAR) {
+            } else if (ch == lPar) {
                 tempToken += ch;
                 openBrackets++;
             } else if (charIsDigit(ch)) {
                 tempToken += ch;
-            } else if (ch == MUL) {
+            } else if (ch == mul) {
                 if (openBrackets == closeBrackets) {
                     if (division) {
                         divisionTokens.add(tempToken);
                     } else {
                         multiplyTokens.add(tempToken);
                     }
-                    tempToken = "";
+                    tempToken = '';
                 } else {
                     tempToken += ch;
                 }
                 division = false;
-            } else if (ch == DIV) {
+            } else if (ch == div) {
                 if (openBrackets == closeBrackets) {
                     if (division) {
                         divisionTokens.add(tempToken);
                     } else {
                         multiplyTokens.add(tempToken);
                     }
-                    tempToken = "";
+                    tempToken = '';
                     division = true;
                 } else {
                     tempToken += ch;
                 }
-            } else if (ch == R_PAR) {
+            } else if (ch == rPar) {
                 closeBrackets++;
                 if (openBrackets == closeBrackets) {
                     if (tempToken[0] == '(') {
@@ -119,52 +119,53 @@ class ExpressionInterpreter {
                 }
             }
         }
-        if (!tempToken.isEmpty) {
+
+        if (tempToken.isNotEmpty) {
             if (multiplyTokens.isEmpty && divisionTokens.isEmpty) {
-                if (sign == PLUS) {
+                if (sign == plus) {
                     positiveTokens.add(tempToken);
                 }
-                else if (sign == MINUS) {
+                else if (sign == minus) {
                     negativeTokens.add(tempToken);
                 }
             }
 
-            if (!multiplyTokens.isEmpty) {
+            if (multiplyTokens.isNotEmpty) {
                 if (division) {
                     divisionTokens.add(tempToken);
                 } else {
                     multiplyTokens.add(tempToken);
                 }
-                if (!divisionTokens.isEmpty) {
+                if (divisionTokens.isNotEmpty) {
                     addToMulDiv(sign, multiplyTokens, divisionTokens, plusMulDivExpressions, minusMulDivExpressions, plusDivMulExpressions, minusDivMulExpressions);
                     divisionTokens.clear();
                 } else {
-                    if (sign == PLUS) {
-                        plusMultiplyExpressions.add(new List<String>.from(multiplyTokens));
+                    if (sign == plus) {
+                        plusMultiplyExpressions.add(List<String>.from(multiplyTokens));
                     }
-                    else if (sign == MINUS) {
-                        minusMultiplyExpressions.add(new List<String>.from(multiplyTokens));
+                    else if (sign == minus) {
+                        minusMultiplyExpressions.add(List<String>.from(multiplyTokens));
                     }
                 }
                 multiplyTokens.clear();
             }
         }
 
-        PlusTreeNode positiveNode = new PlusTreeNode();
-        PlusTreeNode negativeNode = new PlusTreeNode();
+        PlusTreeNode positiveNode = PlusTreeNode();
+        PlusTreeNode negativeNode = PlusTreeNode();
         positiveNode.addChildrenByToken(positiveTokens);
         negativeNode.addChildrenByToken(negativeTokens);
 
-        if (!plusMultiplyExpressions.isEmpty) {
+        if (plusMultiplyExpressions.isNotEmpty) {
             positiveNode.addMultiplyChildren(plusMultiplyExpressions);
         }
-        if (!minusMultiplyExpressions.isEmpty) {
+        if (minusMultiplyExpressions.isNotEmpty) {
             negativeNode.addMultiplyChildren(minusMultiplyExpressions);
         }
-        if (!plusMulDivExpressions.isEmpty && !plusDivMulExpressions.isEmpty) {
+        if (plusMulDivExpressions.isNotEmpty && plusDivMulExpressions.isNotEmpty) {
             positiveNode.addMulDiv(plusMulDivExpressions, plusDivMulExpressions);
         }
-        if (!minusMulDivExpressions.isEmpty && !minusDivMulExpressions.isEmpty) {
+        if (minusMulDivExpressions.isNotEmpty && minusDivMulExpressions.isNotEmpty) {
             negativeNode.addMulDiv(minusMulDivExpressions, minusDivMulExpressions);
         }
         rootTreeNode.setPositive(positiveNode);
@@ -173,10 +174,10 @@ class ExpressionInterpreter {
     }
 
     static void conditionallyAddTempToken(String tempToken, bool division, List<String> divisionTokens, List<String> multiplyTokens) {
-        if (!tempToken.isEmpty && division) {
+        if (tempToken.isNotEmpty && division) {
             divisionTokens.add(tempToken);
         }
-        if (!tempToken.isEmpty && !division) {
+        if (tempToken.isNotEmpty && !division) {
             multiplyTokens.add(tempToken);
         }
     }
@@ -185,22 +186,22 @@ class ExpressionInterpreter {
                                              List<String> negativeTokens, List<String> multiplyTokens, List<String> divisionTokens,
                                              List<List<String>> plusMultiplyExpressions, List<List<String>> minusMultiplyExpressions,
                                              List<List<String>> plusDivisionExpressions, List<List<String>> minusDivisionExpressions) {
-        if (!tempToken.isEmpty && multiplyTokens.isEmpty && divisionTokens.isEmpty) {
+        if (tempToken.isNotEmpty && multiplyTokens.isEmpty && divisionTokens.isEmpty) {
             flushToken(sign, tempToken, positiveTokens, negativeTokens);
         }
-        if (!multiplyTokens.isEmpty) {
-            if (sign == PLUS) {
-                plusMultiplyExpressions.add(new List<String>.from(multiplyTokens));
-            } else if (sign == MINUS) {
-                minusMultiplyExpressions.add(new List<String>.from(multiplyTokens));
+        if (multiplyTokens.isNotEmpty) {
+            if (sign == plus) {
+                plusMultiplyExpressions.add(List<String>.from(multiplyTokens));
+            } else if (sign == minus) {
+                minusMultiplyExpressions.add(List<String>.from(multiplyTokens));
             }
             multiplyTokens.clear();
         }
-        if (!divisionTokens.isEmpty) {
-            if (sign == PLUS) {
-                plusDivisionExpressions.add(new List<String>.from(divisionTokens));
-            } else if (sign == MINUS) {
-                minusDivisionExpressions.add(new List<String>.from(divisionTokens));
+        if (divisionTokens.isNotEmpty) {
+            if (sign == plus) {
+                plusDivisionExpressions.add(List<String>.from(divisionTokens));
+            } else if (sign == minus) {
+                minusDivisionExpressions.add(List<String>.from(divisionTokens));
             }
             divisionTokens.clear();
         }
@@ -209,12 +210,12 @@ class ExpressionInterpreter {
     static void addToMulDiv(String sign, List<String> multiplyTokens, List<String> divisionTokens,
                                     List<List<String>> plusMulDivExpressions, List<List<String>> minusMulDivExpressions,
                                     List<List<String>> plusDivMulExpressions, List<List<String>> minusDivMulExpressions) {
-        if (sign == PLUS) {
-            plusMulDivExpressions.add(new List<String>.from(multiplyTokens));
-            plusDivMulExpressions.add(new List<String>.from(divisionTokens));
-        } else if (sign == MINUS) {
-            minusMulDivExpressions.add(new List<String>.from(multiplyTokens));
-            minusDivMulExpressions.add(new List<String>.from(divisionTokens));
+        if (sign == plus) {
+            plusMulDivExpressions.add(List<String>.from(multiplyTokens));
+            plusDivMulExpressions.add(List<String>.from(divisionTokens));
+        } else if (sign == minus) {
+            minusMulDivExpressions.add(List<String>.from(multiplyTokens));
+            minusDivMulExpressions.add(List<String>.from(divisionTokens));
         }
         multiplyTokens.clear();
         divisionTokens.clear();
@@ -224,7 +225,7 @@ class ExpressionInterpreter {
         positiveNode.getChildren().forEach((TreeNode child) {
             if (child is RootTreeNode) {
                 buildTreeByRoot(child);
-            };
+            }
         });
         negativeNode.getChildren().forEach((TreeNode child) {
             if (child is RootTreeNode) {
@@ -239,12 +240,12 @@ class ExpressionInterpreter {
     }
 
     static void flushToken(String sign, String tempToken, List<String> positiveTokens, List<String> negativeTokens) {
-        if (sign == PLUS) {
-            if (!tempToken.isEmpty) {
+        if (sign == plus) {
+            if (tempToken.isNotEmpty) {
                 positiveTokens.add(tempToken);
             }
-        } else if (sign == MINUS) {
-            if (!tempToken.isEmpty) {
+        } else if (sign == minus) {
+            if (tempToken.isNotEmpty) {
                 negativeTokens.add(tempToken);
             }
         }

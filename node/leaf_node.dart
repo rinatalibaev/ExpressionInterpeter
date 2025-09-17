@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'TreeNode.dart';
+import 'tree_node.dart';
 
 class LeafNode extends TreeNode {
   String? token;
@@ -17,7 +17,7 @@ class LeafNode extends TreeNode {
   double parseToDouble(Map<String, double> map) {
     'a'.codeUnitAt(0) >= 'b'.codeUnitAt(0);
     if (token?.length == 1 && token!.codeUnitAt(0) >= 'a'.codeUnitAt(0) && token!.codeUnitAt(0) <= 'z'.codeUnitAt(0)) {
-      return map[token!.codeUnitAt(0)]!;
+      return map[token]!;
     }
     return double.tryParse(token!)!;
   }
