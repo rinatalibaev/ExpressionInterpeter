@@ -1,11 +1,11 @@
 import 'package:test/test.dart';
-import '../interpreter/expression_interpreter.dart';
+import 'package:expression_interpreter/interpreter/interpreter.dart';
 
 void main() {
   group('Expression Interpreter', () {
 
     String exp1 = '-40/(x-92)*2+5*(7-z)*y';
-    ExpressionInterpreter interpreter1 = ExpressionInterpreter(exp1);
+    Interpreter interpreter1 = Interpreter(exp1);
     Map<String, double> map1 = {'x':100.0, 'y':12.0, 'z':4.0};
 
     test('test without spaces', () {
@@ -13,7 +13,7 @@ void main() {
     });
 
     String exp2 = '-1024/y/2/2/2/2/x/2';
-    ExpressionInterpreter interpreter2 = ExpressionInterpreter(exp2);
+    Interpreter interpreter2 = Interpreter(exp2);
     Map<String, double> map2 = {'x':2.0, 'y':4.0};
 
     test('test multi division', () {
@@ -21,7 +21,7 @@ void main() {
     });
 
     String exp3 = '-10 + (100 - x / y - z * (5 +     y ) ) * (x + y )/2 - 5*x';
-    ExpressionInterpreter interpreter3 = ExpressionInterpreter(exp3);
+    Interpreter interpreter3 = Interpreter(exp3);
     Map<String, double> map3 = {'x':2.0, 'y':4.0, 'z':5.0};
 
     test('test extra spaces sustainability', () {
@@ -29,7 +29,7 @@ void main() {
     });
 
     String exp4 = 'a*a + b*b';
-    ExpressionInterpreter interpreter4 = ExpressionInterpreter(exp4);
+    Interpreter interpreter4 = Interpreter(exp4);
     Map<String, double> map4 = {'a':3.0, 'b':4.0};
 
     test('test simple', () {
@@ -37,7 +37,7 @@ void main() {
     });
 
     String exp5 = 'a*a + 2*a*b + b*b';
-    ExpressionInterpreter interpreter5 = ExpressionInterpreter(exp5);
+    Interpreter interpreter5 = Interpreter(exp5);
     Map<String, double> map5 = {'a':3.0, 'b':4.0};
 
     test('test square of sum', () {

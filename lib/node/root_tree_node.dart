@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'tree_node.dart';
+import '../../node/tree_node.dart';
 
 class RootTreeNode extends TreeNode {
   TreeNode? positive;

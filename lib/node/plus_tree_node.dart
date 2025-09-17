@@ -1,9 +1,9 @@
-import '../interpreter/expression_interpreter.dart';
 import 'leaf_node.dart';
 import 'mul_div_tree_node.dart';
 import 'multiply_tree_node.dart';
-import 'root_tree_node.dart';
-import 'tree_node.dart';
+import '../../node/root_tree_node.dart';
+import '../../node/tree_node.dart';
+import '../interpreter/interpreter.dart';
 
 class PlusTreeNode extends TreeNode {
   final List<TreeNode> children = [];
@@ -76,7 +76,7 @@ class PlusTreeNode extends TreeNode {
         positiveNode.addChildrenByToken([token]);
         negativeNode.addChildrenByToken([]);
         expressionChildren.add(positiveNode);
-        ExpressionInterpreter.calculateChildNodes(positiveNode, negativeNode);
+        Interpreter.calculateChildNodes(positiveNode, negativeNode);
       }
     }
   }

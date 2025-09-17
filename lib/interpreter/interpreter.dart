@@ -2,7 +2,7 @@ import '../node/plus_tree_node.dart';
 import '../node/root_tree_node.dart';
 import '../node/tree_node.dart';
 
-class ExpressionInterpreter {
+class Interpreter {
 
     static const String plus = '+';
     static const String minus = '-';
@@ -12,7 +12,7 @@ class ExpressionInterpreter {
     static const String div = '/';
     late final RootTreeNode rootNode;
 
-    ExpressionInterpreter(String exp) {
+    Interpreter(String exp) {
         rootNode = RootTreeNode(exp);
         buildTreeByRoot(rootNode);
     }

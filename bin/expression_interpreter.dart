@@ -1,8 +1,8 @@
-import 'interpreter/expression_interpreter.dart';
+import 'package:expression_interpreter/interpreter/interpreter.dart';
 
 void main() {
   String exp = '-40/(x-92)*2+5*(7-z)*y';
-  ExpressionInterpreter expressionInterpreter = ExpressionInterpreter(exp);
+  Interpreter expressionInterpreter = Interpreter(exp);
   Map<String, double> map = {};
   map['x'] = 100.0;
   map['y'] = 12.0;

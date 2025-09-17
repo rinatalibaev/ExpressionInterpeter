@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'leaf_node.dart';
-import 'tree_node.dart';
+import '../../node/tree_node.dart';
 
 class MultiplyTreeNode extends TreeNode {
   List<TreeNode> expressionChildren = [];
