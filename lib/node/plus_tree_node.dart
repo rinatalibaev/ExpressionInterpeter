@@ -1,11 +1,14 @@
+import 'package:expression_interpreter/mixins/string_utils.dart';
+import 'package:expression_interpreter/tree/tree_builder.dart';
+
+import '../mixins/calculate_child_nodes.dart';
 import 'leaf_node.dart';
 import 'mul_div_tree_node.dart';
 import 'multiply_tree_node.dart';
 import '../../node/root_tree_node.dart';
 import '../../node/tree_node.dart';
-import '../interpreter/interpreter.dart';
 
-class PlusTreeNode extends TreeNode {
+class PlusTreeNode extends TreeNode with StringUtils {
   final List<TreeNode> children = [];
 
   List<TreeNode> getChildren() {
@@ -76,7 +79,9 @@ class PlusTreeNode extends TreeNode {
         positiveNode.addChildrenByToken([token]);
         negativeNode.addChildrenByToken([]);
         expressionChildren.add(positiveNode);
-        Interpreter.calculateChildNodes(positiveNode, negativeNode);
+        CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode, (rootTreeNode) =>
+          TreeBuilder(rootTreeNode).buildTreeByRoot()
+        );
       }
     }
   }
@@ -90,25 +95,16 @@ class PlusTreeNode extends TreeNode {
     return result;
   }
 
-  bool charIsDigit(String ch) {
-    return ch.codeUnitAt(0) >= '0'.codeUnitAt(0) && ch.codeUnitAt(0) <= '9'.codeUnitAt(0);
-  }
-
-  bool charIsLetter(String ch) {
-    return ch.codeUnitAt(0) >= 'a'.codeUnitAt(0) && ch.codeUnitAt(0) <= 'z'.codeUnitAt(0);
-  }
-
   bool isLeaf(String token) {
     bool leaf = true;
     for (int i = 0; i < token.length; i++) {
-      bool digit = charIsDigit(token[i]);
-      bool letter = charIsLetter(token[i]);
+      bool digitOrLetter = StringUtils.isDigitOrLetter(token[i]);
       if (i == 0) {
-        if (token[i] != '-' && !(digit || letter)) {
+        if (token[i] != '-' && !digitOrLetter) {
           leaf = false;
         }
       } else {
-        if (!digit && !letter) {
+        if (!digitOrLetter) {
           leaf = false;
         }
       }
