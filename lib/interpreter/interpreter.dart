@@ -8,8 +8,7 @@ class Interpreter {
 
     Interpreter(String exp) {
         rootNode = RootTreeNode(exp);
-        TreeBuilder treeBuilder = TreeBuilder(rootNode);
-        treeBuilder.buildTree();
+        TreeBuilder(rootNode).buildTree();
     }
 
     double calculate(Map<String, num> map) {
