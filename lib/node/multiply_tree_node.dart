@@ -16,7 +16,7 @@ class MultiplyTreeNode extends TreeNode {
   }
 
   @override
-  double calcResult(Map<String, double> map) {
+  double calcResult(Map<String, num> map) {
     double result = 1;
     for (LeafNode child in leafChildren) {
       result *= child.calcResult(map);

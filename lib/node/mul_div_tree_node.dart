@@ -10,7 +10,7 @@ class MulDivTreeNode extends TreeNode {
   List<TreeNode> divExpressionChildren = [];
 
   @override
-  double calcResult(Map<String, double> map) {
+  double calcResult(Map<String, num> map) {
     double result = 1;
     for (LeafNode child in mulLeafChildren) {
       result *= child.calcResult(map);

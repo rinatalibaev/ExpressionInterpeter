@@ -20,7 +20,7 @@ class RootTreeNode extends TreeNode {
   }
 
   @override
-  double calcResult(Map<String, double> map) {
+  double calcResult(Map<String, num> map) {
     return positive!.calcResult(map) - negative!.calcResult(map);
   }
 }

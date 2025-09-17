@@ -1,5 +1,5 @@
 abstract class TreeNode {
 
-  double calcResult(Map<String, double> map);
+  double calcResult(Map<String, num> map);
 
 }

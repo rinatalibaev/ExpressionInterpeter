@@ -17,7 +17,7 @@ class Interpreter {
         buildTreeByRoot(rootNode);
     }
 
-    double calculate(Map<String, double> map) {
+    double calculate(Map<String, num> map) {
         return rootNode.calcResult(map);
     }
 

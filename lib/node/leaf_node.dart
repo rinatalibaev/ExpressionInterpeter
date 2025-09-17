@@ -6,7 +6,7 @@ class LeafNode extends TreeNode {
   String? token;
 
   @override
-  double calcResult(Map<String, double> map) {
+  double calcResult(Map<String, num> map) {
     return parseToDouble(map);
   }
 
@@ -14,10 +14,10 @@ class LeafNode extends TreeNode {
     this.token = token;
   }
 
-  double parseToDouble(Map<String, double> map) {
+  double parseToDouble(Map<String, num> map) {
     'a'.codeUnitAt(0) >= 'b'.codeUnitAt(0);
     if (token?.length == 1 && token!.codeUnitAt(0) >= 'a'.codeUnitAt(0) && token!.codeUnitAt(0) <= 'z'.codeUnitAt(0)) {
-      return map[token]!;
+      return map[token]!.toDouble();
     }
     return double.tryParse(token!)!;
   }

@@ -82,7 +82,7 @@ class PlusTreeNode extends TreeNode {
   }
 
   @override
-  double calcResult(Map<String, double> map) {
+  double calcResult(Map<String, num> map) {
     double result = 0;
     for (TreeNode child in children) {
       result += child.calcResult(map);
