@@ -1,12 +1,13 @@
 import 'package:expression_interpreter/interpreter/interpreter.dart';
+import 'package:talker/talker.dart';
+
+final talker = Talker();
 
 void main() {
-  String exp = '-40/(x-92)*2+5*(7-z)*y';
+  final talker = Talker();
+  const String exp = '-40/(x-92)*2+5*(7-z)*y';
   Interpreter expressionInterpreter = Interpreter(exp);
-  Map<String, num> map = {};
-  map['x'] = 100.0;
-  map['y'] = 12.0;
-  map['z'] = 4;
+  const Map<String, num> map = {'x': 100.0, 'y': 12.0, 'z': 4};
   double result = expressionInterpreter.calculate(map);
-  print('Result: $result');
+  talker.info('Result: $result');
 }
