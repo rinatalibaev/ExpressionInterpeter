@@ -11,16 +11,9 @@ class RootTreeNode extends TreeNode {
 
   RootTreeNode(this.token);
 
-  void setPositive(TreeNode positive) {
-    this.positive = positive;
-  }
-
-  void setNegative(TreeNode negative) {
-    this.negative = negative;
-  }
+  void setPositive(TreeNode positive) => this.positive = positive;
+  void setNegative(TreeNode negative) => this.negative = negative;
 
   @override
-  double calcResult(Map<String, num> map) {
-    return positive!.calcResult(map) - negative!.calcResult(map);
-  }
+  double calcResult(Map<String, num> map) => positive!.calcResult(map) - negative!.calcResult(map);
 }

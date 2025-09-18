@@ -5,9 +5,7 @@ import '../../node/tree_node.dart';
 class MultiplyTreeNode extends TreeNode {
   List<TreeNode> children = [];
 
-  void addChildren(List<TreeNode> children) {
-    this.children += children;
-  }
+  void addChildren(List<TreeNode> children) => this.children += children;
 
   @override
   double calcResult(Map<String, num> map) {

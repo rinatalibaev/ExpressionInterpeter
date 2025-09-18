@@ -6,9 +6,7 @@ class LeafNode extends TreeNode {
   String? token;
 
   @override
-  double calcResult(Map<String, num> map) {
-    return parseToDouble(map);
-  }
+  double calcResult(Map<String, num> map) => parseToDouble(map);
 
   void setToken(String token) {
     this.token = token;
