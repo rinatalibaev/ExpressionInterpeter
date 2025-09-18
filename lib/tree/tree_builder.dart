@@ -146,16 +146,24 @@ class TreeBuilder {
       negativeNode.addMultiplyChildren(minusMultiplyExpressions);
     }
     if (plusMulDivExpressions.isNotEmpty && plusDivMulExpressions.isNotEmpty) {
-      positiveNode.addMulDivChildren(plusMulDivExpressions, plusDivMulExpressions);
+      positiveNode.addMulDivChildren(
+        plusMulDivExpressions,
+        plusDivMulExpressions,
+      );
     }
     if (minusMulDivExpressions.isNotEmpty &&
         minusDivMulExpressions.isNotEmpty) {
-      negativeNode.addMulDivChildren(minusMulDivExpressions, minusDivMulExpressions);
+      negativeNode.addMulDivChildren(
+        minusMulDivExpressions,
+        minusDivMulExpressions,
+      );
     }
     rootTreeNode.setPositive(positiveNode);
     rootTreeNode.setNegative(negativeNode);
-    CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode,
-      (RootTreeNode rootTreeNode) => TreeBuilder(rootTreeNode).buildTree()
+    CalculateChildNodes.calculateChildNodes(
+      positiveNode,
+      negativeNode,
+      (RootTreeNode rootTreeNode) => TreeBuilder(rootTreeNode).buildTree(),
     );
   }
 
@@ -169,7 +177,9 @@ class TreeBuilder {
   }
 
   void flushOrAddToMultiply() {
-    if (tempToken.isNotEmpty && multiplyTokens.isEmpty && divisionTokens.isEmpty) {
+    if (tempToken.isNotEmpty &&
+        multiplyTokens.isEmpty &&
+        divisionTokens.isEmpty) {
       flushToken();
     }
     if (multiplyTokens.isNotEmpty) {

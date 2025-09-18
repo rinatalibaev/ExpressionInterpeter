@@ -20,5 +20,4 @@ class MulDivTreeNode extends TreeNode {
 
   void addMulChildren(List<TreeNode> children) => mulChildren += children;
   void addDivChildren(List<TreeNode> children) => divChildren += children;
-
 }

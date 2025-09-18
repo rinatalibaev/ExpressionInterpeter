@@ -43,7 +43,10 @@ class PlusTreeNode extends TreeNode with StringUtils {
     }
   }
 
-  void addMulDivChildren(List<List<String>> plusMulDivExpressions, List<List<String>> plusDivMulExpressions) {
+  void addMulDivChildren(
+    List<List<String>> plusMulDivExpressions,
+    List<List<String>> plusDivMulExpressions,
+  ) {
     MulDivTreeNode mulDivTreeNode = MulDivTreeNode();
     for (List<String> tokens in plusMulDivExpressions) {
       List<LeafNode> mulLeafChildren = [];
@@ -67,7 +70,11 @@ class PlusTreeNode extends TreeNode with StringUtils {
     children.add(mulDivTreeNode);
   }
 
-  void addNodes(List<String> tokens, List<LeafNode> leafChildren, List<TreeNode> expressionChildren) {
+  void addNodes(
+    List<String> tokens,
+    List<LeafNode> leafChildren,
+    List<TreeNode> expressionChildren,
+  ) {
     for (String token in tokens) {
       if (isLeaf(token)) {
         LeafNode leafNode = LeafNode();
@@ -79,8 +86,10 @@ class PlusTreeNode extends TreeNode with StringUtils {
         positiveNode.addChildrenByToken([token]);
         negativeNode.addChildrenByToken([]);
         expressionChildren.add(positiveNode);
-        CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode, (RootTreeNode rootTreeNode) =>
-          TreeBuilder(rootTreeNode).buildTree()
+        CalculateChildNodes.calculateChildNodes(
+          positiveNode,
+          negativeNode,
+          (RootTreeNode rootTreeNode) => TreeBuilder(rootTreeNode).buildTree(),
         );
       }
     }
