@@ -155,7 +155,7 @@ class TreeBuilder {
     rootTreeNode.setPositive(positiveNode);
     rootTreeNode.setNegative(negativeNode);
     CalculateChildNodes.calculateChildNodes(positiveNode, negativeNode,
-      (rootTreeNode) => TreeBuilder(rootTreeNode).buildTree()
+      (RootTreeNode rootTreeNode) => TreeBuilder(rootTreeNode).buildTree()
     );
   }
 
